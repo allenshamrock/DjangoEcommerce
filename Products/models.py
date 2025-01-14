@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User 
 
 class Category(models.Model):
     category_name = models.CharField(max_length=255)
@@ -61,7 +62,7 @@ class VariationCategory(models.Model):
 
 class Variations(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='variations' )
-    variation_category = models.ForeignKey(VariationCategory, on_delete=models.CASCADE,related_name='cvariations')
+    variation_category = models.ForeignKey(VariationCategory, on_delete=models.CASCADE,related_name='variations')
     variation_value = models.CharField(max_length=100)
     is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -88,3 +89,27 @@ class ProductGallery(models.Model):
     def __str__(self):
         return self.product.product_name
         
+class ReviewRating(models.Model):
+    product = models.ForeignKey(Product,on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    subject = models.CharField(max_length=255)
+    review = models.TextField()
+    rating = models.FloatField()
+    ip = models.CharField(max_length=255)
+    status = models.BooleanField(default=True) 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at =models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Product Review'
+        verbose_name_plural = 'Product Reviews'
+        indexes = [
+            models.Index(fields=['id','product','user'])
+
+        ]
+        ordering = ('-created_at',)
+
+
+    def __str__(self):
+        return f'{self.user.username} {self.product.product_name}'
+
