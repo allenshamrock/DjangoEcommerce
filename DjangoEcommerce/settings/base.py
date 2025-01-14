@@ -116,7 +116,7 @@ STATICFILES_DIRS = [
     BASE_DIR / '../static'
 ]
 
-STATIC_ROOTS = BASE_DIR/ '../staticfiles'
+STATIC_ROOT = BASE_DIR/ '../staticfiles'
 MEDIA_ROOT = BASE_DIR/ '../static/media'
 
 STATICFILES_STORAGE: "whitenoise.storage.CompressedManifestStaticFilesStorage"
