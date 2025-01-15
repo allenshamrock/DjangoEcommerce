@@ -1,7 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User 
+from django.urls import reverse
+
 
 class Category(models.Model):
+    """
+    Represents a product category.
+    """
+
     category_name = models.CharField(max_length=255)
     slug = models.SlugField(unique= True)
 
@@ -17,6 +23,10 @@ class Category(models.Model):
         return self.category_name
 
 class Product(models.Model):
+    """
+    Represents a product with details like name, description, price, stock, and discount.
+    """
+
     DISCOUNT_TYPE_CHOICES = [
         ('amount','Amount'),
         ('percent','Percentage')
@@ -45,7 +55,23 @@ class Product(models.Model):
     def __str__(self):
         return self.product_name
     
+    def get_absolute_url(self):
+        return reverse('product_detail', args=[self.category.slug, self.slug])
+
+        """
+        Calculates the average rating for the product.
+        """
+
+    def average_review(self):
+        reviews = ReviewRating.objects.filter(product=self,status=True)
+        average = reviews.aggregate(average=models.Avg('rating'))
+        return float(average['average']) if average['average'] is not None else 0
+    
 class VariationCategory(models.Model):
+    """
+    Represents a category of product variations (e.g., size, color).
+    """
+
     name = models.CharField(max_length=100,unique=True)
     display_name = models.CharField(max_length=100)
     created = models.DateTimeField(auto_now_add=True)
@@ -58,9 +84,12 @@ class VariationCategory(models.Model):
         ]
 
     def __str__(self):
-        return self.name
+        return self.display_name
 
-class Variations(models.Model):
+class Variation(models.Model):
+    """
+    Represents a specific variation of a product (e.g., Red, Large).
+    """
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='variations' )
     variation_category = models.ForeignKey(VariationCategory, on_delete=models.CASCADE,related_name='variations')
     variation_value = models.CharField(max_length=100)
@@ -79,6 +108,10 @@ class Variations(models.Model):
         return f'{self.variation_value} ({self.variation_category})'
 
 class ProductGallery(models.Model):
+    """
+    Represents a gallery of images for a product.
+    """
+
     product = models.ForeignKey(Product, on_delete=models.CASCADE,related_name='gallery')
     image = models.ImageField(upload_to='product/gallery')
 
@@ -90,6 +123,10 @@ class ProductGallery(models.Model):
         return self.product.product_name
         
 class ReviewRating(models.Model):
+    """
+    Represents a review and rating given by a user for a product.
+    """
+
     product = models.ForeignKey(Product,on_delete=models.CASCADE, related_name='reviews')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     subject = models.CharField(max_length=255)
