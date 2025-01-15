@@ -11,7 +11,9 @@ def product_detail(request,category_slug,product_slug):
     variation_category = VariationCategory.objects.filter(variations__product = product).distinct()
     variations = Variation.objects.filter(product=product,is_active=True)
 
+    # Fetch the product's gallery image
     gallery = ProductGallery.objects.filter(product=product)
+    # Get the reviews
     reviews = ReviewRating.objects.filter(product=product.id, status=True)
 
     full_stars = range(int(product.average_review()))
