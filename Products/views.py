@@ -8,7 +8,7 @@ def product_detail(request,category_slug,product_slug):
     except Exception as e:
         raise e
     
-    variation_category = VariationCategory.objects.filter(variations__product = product).distinct()
+    variation_categories = VariationCategory.objects.filter(variations__product = product).distinct()
     variations = Variation.objects.filter(product=product,is_active=True)
 
     # Fetch the product's gallery image
@@ -40,7 +40,7 @@ def product_detail(request,category_slug,product_slug):
         'reviews':reviews,
         'full_stars':full_stars,
         'empty_stars':empty_stars,
-        'variation_category':variation_category,
+        'variation_categories':variation_categories,
         'variations':variations,
         'review_summary':review_summary
     }

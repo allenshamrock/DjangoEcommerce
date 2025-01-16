@@ -1,37 +1,76 @@
-{% extends 'base.html'%}
- {%block title%} {{product.product_name}} {%endblock %}
-{% load static%}
- {% block content%}
- <div class="font-sans">
-<div class="max-w-2xl p4 max-lg:mx-auto lg:max-w-7xl">
-  <div class="grid grid-cols-1 items-start gap-12 lg:grid-cols-5">
-    <div class="top-0 w-full lg:sticky lg:col-span-3">
-      <div class="rounded-xl px-4 py-12">
-        <img
-          class="rounded w-9/12 mx-auto object-contain"
-          src="{{product.image.url}}"
-          alt="{{product.product_name}}"
-        />
+{% extends 'base.html' %}
+
+{% block title %}
+  {{product.product_name}}
+{% endblock title %}
+{% load static %}
+{% block content %}
+<div class=" font-sans">
+  <div class="max-w-2xl p-4 max-lg:mx-auto lg:max-w-7xl">
+    <form action=""></form>
+    <div class="grid grid-cols-1 items-start gap-12 lg:grid-cols-5">
+      <div class="top-0 w-full text-center lg:sticky lg:col-span-3">
+        <div class="rounded-xl  px-4 py-12">
+          <img
+            src="{{product.image.url}}"
+            alt="{{product.product_name}}"
+            class="mx-auto w-9/12 rounded object-cover"
+          />
+        </div>
+
+        <div class="mx-auto mt-4 flex flex-wrap justify-center gap-4">
+          <!--Product Gallery-->
+          {% if gallery %}
+          {% for i in gallery %}
+          <div
+            class="items-cemter flex h-20 w-[90px] cursor-pointer justify-center rounded-xl bg-gray-800 p-4"
+          >
+            <img
+              src="{{i.image.url}}"
+              alt="{{product.product_name}}"
+              class="w-full object-contain"
+            />
+          </div>
+          {% endfor %}
+          {% endif %}
+          <!--End of Gallery-->
+          
+        </div>
       </div>
-  <div class="mx-auto mt-4 flex flex-wrap justify-center gap-4">
-    <!--Product Gallery-->
-    {% if gallery %}
-     {% for i in gallery %}
-    <div
-      class="items-cemter flex h-20 w-[90px] cursor-pointer justify-center rounded-xl bg-gray-800 p-4"
-    >
-      <img
-        src="{{i.image.url}}"
-        alt="{{product.product_name}}"
-        class="w-full object-contain"
-      />
-    </div>
-    {% endfor %}
-     {% endif %}
-    <!--End of Gallery-->
-  </div>
-    </div>
-  </div>
-</div>
- </div>
-{% endblock %}
+
+      <div class="lg:col-span-2">
+        <h2 class="text-3xl font-semibold text-gray-800">
+          {{product.product_name}}
+        </h2>
+
+        <div class="mt-4 flex space-x-2 items-center">
+          <!-- Full stars -->
+          {% for star in full_stars %}
+            <svg class="w-[18px] fill-yellow-300" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+            </svg>
+          {% endfor %}
+    
+          <!-- Empty stars -->
+          {% for star in empty_stars %}
+              <svg class="w-[18px] fill-[#CED5D8]" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.     29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+              </svg>
+          {% endfor %}
+    
+          <h4 class="text-base text-gray-500">{{ product.reviews.count }} Reviews</h4>
+          <!-- Product variations -->
+        </div>
+             {% for category in variation_categories %}
+        <div class="mt-4">
+          <label class="block text-sm font-medium text-gray-700">{{ category.display_name }}</label>
+          <select class="mt-1 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+            {% for variation in variations %}
+              {% if variation.variation_category == category %}
+              <option value="{{ variation.id }}">{{ variation.variation_value }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        {% endfor %}
+        {%endblock content%}
