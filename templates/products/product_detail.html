@@ -73,4 +73,49 @@
           </select>
         </div>
         {% endfor %}
+        <!-- product variation end -->
+         <div class="mt-8 flex flex-wrap gap-4 ">
+         <p class="text-4xl font-semibold text-gray-700"> {{product.price}}</p>
+         {%if product.discount%}
+         <p class="text-base text-gray-400">
+          <strike>ksh{{product.discount}}</strike>
+         </p>
+         {%endif%}
+         </div>
+         <div class="mt-8 flex flex-wrap gap-4">
+          <a href="">
+            <button type="button" class="min-w-[200px] rounded text-gray-300 border  border-gray-200 bg-gray-800 px-4 py-4 font-bold text-sm" >Add to cart</button>
+          </a>
+         </div>
+         <div class="mt-8">
+          <h3 class="text-xl font-semibold text-gray-800 " >About {{product.product_name}}</h3>
+          <p class="mt-4  text-sm text-gray-800">{{product.description}} </p>
+         </div>
+         <div id="review" class="mt-8">
+          <form action="" method="POST">
+            {% csrf_token %}
+            <div class="flex flex-wrap gap-4">
+              <div class="w-full rate">
+                <label class="block text-md font-bold text-gray-700"> Rate this Product </label>
+                <div class="star-rating ">
+                    <input type="radio" id="star5" name="rating" value="5" />
+                    <label for="star5" class="star">&#9733;</label>
+                    <input type="radio" id="star4" name="rating" value="4" />
+                    <label for="star4" class="star">&#9733;</label>
+                    <input type="radio" id="star3" name="rating" value="3" />
+                    <label for="star3" class="star">&#9733;</label>
+                    <input type="radio" id="star2" name="rating" value="2" />
+                    <label for="star2" class="star">&#9733;</label>
+                    <input type="radio" id="star1" name="rating" value="1" />
+                    <label for="star1" class="star">&#9733;</label>
+                </div>
+            </div>
+            <div class="w-full">
+                <label class="block text-md font-bold text-gray-700">Leave a review</label>
+                <textarea name="review" class="mt-1 p-3 block w-full rounded-md border-gray-500 shadow-sm focus:border-indigo-500 sm:text-sm bg-gray-300"></textarea>
+            </div>
+        </div>
+        <button type="submit" class="mt-4 w-full rounded border border-gray-300 bg-gray-800 px-4 py-2.5 font-semibold text-gray-300">Submit review</button>
+      </form>
+      </div>
         {%endblock content%}

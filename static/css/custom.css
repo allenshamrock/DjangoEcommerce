@@ -1,0 +1,26 @@
+
+.star-rating {
+    display: inline-flex;
+    direction: rtl; 
+    font-size: 24px; 
+    unicode-bidi: bidi-override;
+}
+
+.star-rating input[type="radio"] {
+    display: none; 
+}
+
+.star-rating label.star {
+    cursor: pointer;
+    color: #ddd; 
+    transition: color 0.2s ease-in-out;
+}
+
+.star-rating label.star:hover,
+.star-rating label.star:hover ~ label.star {
+    color: #ffc107; 
+}
+
+.star-rating input[type="radio"]:checked ~ label.star {
+    color: #ffc107; 
+}

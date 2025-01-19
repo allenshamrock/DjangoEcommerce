@@ -129,8 +129,8 @@ class ReviewRating(models.Model):
 
     product = models.ForeignKey(Product,on_delete=models.CASCADE, related_name='reviews')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    subject = models.CharField(max_length=255)
-    review = models.TextField()
+    subject = models.CharField(max_length=255,blank=True,null=True)
+    review = models.TextField(blank=True,null=True)
     rating = models.FloatField()
     ip = models.CharField(max_length=255)
     status = models.BooleanField(default=True) 
