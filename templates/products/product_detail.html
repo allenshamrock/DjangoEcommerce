@@ -1,16 +1,11 @@
-{% extends 'base.html' %}
-
-{% block title %}
-  {{product.product_name}}
-{% endblock title %}
-{% load static %}
-{% block content %}
-<div class=" font-sans">
+{% extends 'base.html' %} {% block title %} {{product.product_name}} 
+{% endblock title %} {% load static %} {% block content %}
+<div class="font-sans">
   <div class="max-w-2xl p-4 max-lg:mx-auto lg:max-w-7xl">
     <form action=""></form>
     <div class="grid grid-cols-1 items-start gap-12 lg:grid-cols-5">
       <div class="top-0 w-full text-center lg:sticky lg:col-span-3">
-        <div class="rounded-xl  px-4 py-12">
+        <div class="rounded-xl px-4 py-12">
           <img
             src="{{product.image.url}}"
             alt="{{product.product_name}}"
@@ -20,8 +15,7 @@
 
         <div class="mx-auto mt-4 flex flex-wrap justify-center gap-4">
           <!--Product Gallery-->
-          {% if gallery %}
-          {% for i in gallery %}
+          {% if gallery %} {% for i in gallery %}
           <div
             class="items-cemter flex h-20 w-[90px] cursor-pointer justify-center rounded-xl bg-gray-800 p-4"
           >
@@ -31,10 +25,8 @@
               class="w-full object-contain"
             />
           </div>
-          {% endfor %}
-          {% endif %}
+          {% endfor %} {% endif %}
           <!--End of Gallery-->
-          
         </div>
       </div>
 
@@ -46,76 +38,199 @@
         <div class="mt-4 flex space-x-2 items-center">
           <!-- Full stars -->
           {% for star in full_stars %}
-            <svg class="w-[18px] fill-yellow-300" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-            </svg>
+          <svg
+            class="w-[18px] fill-yellow-300"
+            viewBox="0 0 14 13"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z"
+            />
+          </svg>
           {% endfor %}
-    
+
           <!-- Empty stars -->
           {% for star in empty_stars %}
-              <svg class="w-[18px] fill-[#CED5D8]" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.     29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-              </svg>
+          <svg
+            class="w-[18px] fill-[#CED5D8]"
+            viewBox="0 0 14 13"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.     29787L0.342604 4.83688L4.5313 3.60213L7 0Z"
+            />
+          </svg>
           {% endfor %}
-    
-          <h4 class="text-base text-gray-500">{{ product.reviews.count }} Reviews</h4>
+
+          <h4 class="text-base text-gray-500">
+            {{ product.reviews.count }} Reviews
+          </h4>
           <!-- Product variations -->
         </div>
-             {% for category in variation_categories %}
+        {% for category in variation_categories %}
         <div class="mt-4">
-          <label class="block text-sm font-medium text-gray-700">{{ category.display_name }}</label>
-          <select class="mt-1 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+          <label class="block text-sm font-medium text-gray-700"
+            >{{ category.display_name }}</label
+          >
+          <select
+            class="mt-1 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          >
             {% for variation in variations %}
-              {% if variation.variation_category == category %}
-              <option value="{{ variation.id }}">{{ variation.variation_value }}</option>
-              {% endif %}
+             {% if variation.variation_category == category %}
+            <option value="{{ variation.id }}">
+              {{ variation.variation_value }}
+            </option>
+            {% endif %} 
             {% endfor %}
           </select>
         </div>
         {% endfor %}
         <!-- product variation end -->
-         <div class="mt-8 flex flex-wrap gap-4 ">
-         <p class="text-4xl font-semibold text-gray-700"> {{product.price}}</p>
-         {%if product.discount%}
-         <p class="text-base text-gray-400">
-          <strike>ksh{{product.discount}}</strike>
-         </p>
-         {%endif%}
-         </div>
-         <div class="mt-8 flex flex-wrap gap-4">
+        <div class="mt-8 flex flex-wrap gap-4">
+          <p class="text-4xl font-semibold text-gray-700">{{product.price}}</p>
+          {%if product.discount%}
+          <p class="text-base text-gray-400">
+            <strike>ksh{{product.discount}}</strike>
+          </p>
+          {%endif%}
+        </div>
+        <div class="mt-8 flex flex-wrap gap-4">
           <a href="">
-            <button type="button" class="min-w-[200px] rounded text-gray-300 border  border-gray-200 bg-gray-800 px-4 py-4 font-bold text-sm" >Add to cart</button>
+            <button
+              type="button"
+              class="min-w-[200px] rounded text-gray-300 border border-gray-200 bg-gray-800 px-4 py-4 font-bold text-sm"
+            >
+              Add to cart
+            </button>
           </a>
-         </div>
-         <div class="mt-8">
-          <h3 class="text-xl font-semibold text-gray-800 " >About {{product.product_name}}</h3>
-          <p class="mt-4  text-sm text-gray-800">{{product.description}} </p>
-         </div>
-         <div id="review" class="mt-8">
+        </div>
+        <div class="mt-8">
+          <h3 class="text-xl font-semibold text-gray-800">
+            About {{product.product_name}}
+          </h3>
+          <p class="mt-4 text-sm text-gray-800">{{product.description}}</p>
+        </div>
+        <div id="review" class="mt-8">
           <form action="" method="POST">
             {% csrf_token %}
             <div class="flex flex-wrap gap-4">
               <div class="w-full rate">
-                <label class="block text-md font-bold text-gray-700"> Rate this Product </label>
-                <div class="star-rating ">
-                    <input type="radio" id="star5" name="rating" value="5" />
-                    <label for="star5" class="star">&#9733;</label>
-                    <input type="radio" id="star4" name="rating" value="4" />
-                    <label for="star4" class="star">&#9733;</label>
-                    <input type="radio" id="star3" name="rating" value="3" />
-                    <label for="star3" class="star">&#9733;</label>
-                    <input type="radio" id="star2" name="rating" value="2" />
-                    <label for="star2" class="star">&#9733;</label>
-                    <input type="radio" id="star1" name="rating" value="1" />
-                    <label for="star1" class="star">&#9733;</label>
+                <label class="block text-md font-bold text-gray-700">
+                  Rate this Product
+                </label>
+                <div class="star-rating">
+                  <input type="radio" id="star5" name="rating" value="5" />
+                  <label for="star5" class="star">&#9733;</label>
+                  <input type="radio" id="star4" name="rating" value="4" />
+                  <label for="star4" class="star">&#9733;</label>
+                  <input type="radio" id="star3" name="rating" value="3" />
+                  <label for="star3" class="star">&#9733;</label>
+                  <input type="radio" id="star2" name="rating" value="2" />
+                  <label for="star2" class="star">&#9733;</label>
+                  <input type="radio" id="star1" name="rating" value="1" />
+                  <label for="star1" class="star">&#9733;</label>
                 </div>
+              </div>
+              <div class="w-full">
+                <label class="block text-md font-bold text-gray-700"
+                  >Leave a review</label
+                >
+                <textarea
+                  name="review"
+                  class="mt-1 p-3 block w-full rounded-md border-gray-500 shadow-sm focus:border-indigo-500 sm:text-sm bg-gray-300"
+                ></textarea>
+              </div>
             </div>
-            <div class="w-full">
-                <label class="block text-md font-bold text-gray-700">Leave a review</label>
-                <textarea name="review" class="mt-1 p-3 block w-full rounded-md border-gray-500 shadow-sm focus:border-indigo-500 sm:text-sm bg-gray-300"></textarea>
-            </div>
+            <button
+              type="submit"
+              class="mt-4 w-full rounded border border-gray-300 bg-gray-800 px-4 py-2.5 font-semibold text-gray-300"
+            >
+              Submit review
+            </button>
+          </form>
         </div>
-        <button type="submit" class="mt-4 w-full rounded border border-gray-300 bg-gray-800 px-4 py-2.5 font-semibold text-gray-300">Submit review</button>
-      </form>
+        <div class="mt-8">
+          <ul class="flex">
+            <li
+              class="cursor-pointer border-b-2 border-yellow-300 px-8 py-3 text-sm font-semibold text-gray-700 transition-all"
+            >
+              Reviews
+            </li>  
+          </ul>
+
+          <!--Review progress bar start-->
+          <div class="mt-8">
+            {% if review_summary%}
+            {% for rating, percentage in review_summary.items %}
+              <div class="flex items-center mb-2">
+                <p class="text-sm font-semibold text-gray-800">{{ rating }}.0</p>
+          <svg
+            class="w-[18px] fill-yellow-300"
+            viewBox="0 0 14 13"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z"
+            />
+          </svg>
+                <div class="ml-3 h-2 w-full rounded bg-gray-400">
+                  <div class="h-full rounded bg-yellow-300" style="width: {{ percentage }}%"></div>
+                </div>
+                <p class="ml-3 text-sm font-semibold text-gray-800">{{ percentage|floatformat:0 }}%</p>
+              </div>
+            {% endfor %}
+            {%else%}
+            <p>No ratings available yet</p>
+            {%endif%}
+          </div>
+          {% for review in reviews%}          
+         <div class="mt-8 flex items-start">
+            <!-- <img
+              src=""
+              class="h-12 w-12 rounded-full border-2 border-white"
+            /> -->
+
+            <div class="ml-3">
+              <h4 class="text-sm font-semibold text-gray-800">{{review.user.first_name}} {{review.user.last_name}}</h4>
+              <div class="mt-1 flex space-x-1 rating-star">
+                <i
+                    class="fa fa-star{% if review.rating == 0.5 %}-half-o{% elif review.rating < 1 %}-o{% endif %} w-4"
+                    aria-hidden="true"
+                  ></i>
+                
+                <i
+                    class="fa fa-star{% if review.rating == 1.5 %}-half-o{% elif review.rating < 2 %}-o{% endif %} w-4"
+                    aria-hidden="true"
+                  ></i>
+
+                <i
+                    class="fa fa-star{% if review.rating == 2.5 %}-half-o{% elif review.rating < 3 %}-o{% endif %} w-4"
+                    aria-hidden="true"
+                  ></i>
+
+                <i
+                    class="fa fa-star{% if review.rating == 3.5 %}-half-o{% elif review.rating < 4 %}-o{% endif %} w-4"
+                    aria-hidden="true"
+                  ></i>
+
+                <i
+                    class="fa fa-star{% if review.rating == 4.5 %}-half-o{% elif review.rating < 5 %}-o{% endif %} w-4"
+                    aria-hidden="true"
+                  ></i>
+                <p class="!ml-2 text-xs font-semibold text-gray-800">{{review.updated_at|timesince}} ago</p>
+              </div>
+              <p class="mt-4 text-xs text-gray-800">
+                <p>{{review.review}}</p>
+              </p>
+            </div>
+          </div>
+          {%endfor%}
       </div>
-        {%endblock content%}
+    </div>
+  </div>
+</div>
+
+{%endblock content%}

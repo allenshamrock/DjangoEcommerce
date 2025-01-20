@@ -14,7 +14,7 @@ def product_detail(request,category_slug,product_slug):
     # Fetch the product's gallery image
     gallery = ProductGallery.objects.filter(product=product)
     # Get the reviews
-    reviews = ReviewRating.objects.filter(product=product.id, status=True)
+    reviews = ReviewRating.objects.filter(product_id=product.id, status=True)
 
     full_stars = range(int(product.average_review()))
     empty_stars = range(5 - int(product.average_review()))
@@ -42,7 +42,9 @@ def product_detail(request,category_slug,product_slug):
         'empty_stars':empty_stars,
         'variation_categories':variation_categories,
         'variations':variations,
-        'review_summary':review_summary
+        'review_summary':review_summary or {}
     }
+
+    print(context)
 
     return render(request ,'products/product_detail.html',context)
