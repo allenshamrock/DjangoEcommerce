@@ -31,8 +31,11 @@ def product_detail(request,category_slug,product_slug):
 
 # Calculating the percentage of each rating
     if total_reviews > 0:
-        for key in reviews:
+        for key in review_summary:
             review_summary[key] = (review_summary[key] / total_reviews) * 100
+    else:
+        for key in review_summary:
+            review_summary[key] = 0
     
     context = {
         'product':product,
