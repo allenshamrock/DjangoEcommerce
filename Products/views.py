@@ -97,7 +97,7 @@ def submit_review(request,product_id):
             defaults={
                 'subject':form.cleaned_data['subject'],
                 'rating':form.cleaned_data['rating'],
-                'subject':form.cleaned_data['subject'],
+                'review':form.cleaned_data['review'],
                 'ip':request.META.get('REMOTE_ADDR')
             }
             )
