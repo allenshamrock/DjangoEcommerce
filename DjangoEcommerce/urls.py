@@ -6,7 +6,9 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('pages.urls')),
-    path('products/',include('Products.urls'))
+    path('products/',include('Products.urls')),
+    path("__reload__/", include("django_browser_reload.urls")),
+
 ]
 
 if settings.DEBUG:
