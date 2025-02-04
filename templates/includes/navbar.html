@@ -53,7 +53,24 @@
               </span>
             </li>
           </a>
-          <a href="#">
+          {%if request.user.is_authenticated%}
+          {% url 'account_logout' as logout_url %}
+          {% if logout_url %}
+          <a href=" {{ logout_url }}">
+            <li
+              class="flex px-3 text-[15px] hover:fill-[#007bff] hover:text-[#007bff] max-lg:py-2"
+            >
+              <button
+                class="rounded border-2 border-[#333] bg-transparent px-4 py-2 text-sm font-semibold text-[#3333]"
+              >
+                Logout
+              </button>
+            </li>
+          </a>
+          {%endif%}
+          {%else%}
+          {% url 'account_login' as login_url %}
+                <a href="{{ login_url }}">
             <li
               class="flex px-3 text-[15px] hover:fill-[#007bff] hover:text-[#007bff] max-lg:py-2"
             >
@@ -64,6 +81,8 @@
               </button>
             </li>
           </a>
+          {%endif%}
+
           <li id="toggleOpen" class="lg:hidden">
             <button>
               <svg

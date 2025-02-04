@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,6 +31,10 @@ SECRET_KEY = 'django-insecure-+x^abv3&dg(k_nlc21hne17j8b)oj9s0f@m&&quqkk&md4tto7
 # Application definition
 
 INSTALLED_APPS = [
+      'allauth',
+      'allauth.account',
+      'allauth.socialaccount',
+      'allauth.socialaccount.providers.google',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,8 +45,7 @@ INSTALLED_APPS = [
     'Products',
     'tailwind',
     'theme',
-    'django_browser_reload'
-
+    'django_browser_reload',
 
 ]
 
@@ -58,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "django_browser_reload.middleware.BrowserReloadMiddleware",
+    'allauth.account.middleware.AccountMiddleware'
 
 ]
 
@@ -131,6 +136,45 @@ STATIC_ROOT = BASE_DIR/ '../staticfiles'
 MEDIA_ROOT = BASE_DIR/ '../static/media'
 
 STATICFILES_STORAGE: "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# allauth settings 
+AUTHENTICATION_BACKENDS=[
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+]
+
+ACCOUNT_EMAIL_REQUIRED = True
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'account_login'
+LOGIN_ACCOUNT_URL = 'home'
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
+ACCOUNT_SIGNUP_PASSWORD_VERIFICATION =True
+SOCIALACCOUNT_QUERY_EMAIL= ACCOUNT_EMAIL_REQUIRED
+SOCIALACCOUNT_AUTO_SIGNUP= True
+SOCIALACCOUNT_EMAIL_REQUIRED =ACCOUNT_EMAIL_REQUIRED
+SOCIALACCOUNT_STORE_TOKENS =True
+SOCIALACCOUNT_ENABLED= True
+SOCAIALACCOUNT_ONLY = False
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_LOGIN_BY_CODE_ENABLED = True
+ACCOUNT_PASSKEY_LOGIN_ENABLED=True
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
+ACCOUNT_EMAIL_SUBJECT_PREFIX = 'DJANGO_ECCOMERCE'
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
+
+# sending email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST =config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_HOST_USER =config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
