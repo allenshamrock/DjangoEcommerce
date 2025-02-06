@@ -31,21 +31,22 @@ SECRET_KEY = 'django-insecure-+x^abv3&dg(k_nlc21hne17j8b)oj9s0f@m&&quqkk&md4tto7
 # Application definition
 
 INSTALLED_APPS = [
-      'allauth',
-      'allauth.account',
-      'allauth.socialaccount',
-      'allauth.socialaccount.providers.google',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'pages',
-    'Products',
-    'tailwind',
-    'theme',
-    'django_browser_reload',
+        'allauth',
+        'allauth.account',
+        'allauth.socialaccount',
+        'allauth.socialaccount.providers.google',
+        'django.contrib.admin',
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+        'pages',
+        'Products',
+        'tailwind',
+        'theme',
+        'django_browser_reload',
+        'accounts'
 
 ]
 
