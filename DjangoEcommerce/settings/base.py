@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 from decouple import config
 
@@ -46,7 +46,7 @@ INSTALLED_APPS = [
         'tailwind',
         'theme',
         'django_browser_reload',
-        'accounts'
+        'accounts.apps.AccountsConfig'
 
 ]
 
@@ -72,7 +72,11 @@ ROOT_URLCONF = 'DjangoEcommerce.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR /'../templates'],
+        'DIRS': [
+        os.path.join(BASE_DIR, '../templates'),
+        os.path.join(BASE_DIR, '../templates', 'account'),
+        ],
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
