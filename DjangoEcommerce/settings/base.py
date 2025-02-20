@@ -46,7 +46,8 @@ INSTALLED_APPS = [
         'tailwind',
         'theme',
         'django_browser_reload',
-        'accounts.apps.AccountsConfig'
+        'accounts.apps.AccountsConfig',
+        'carts'
 
 ]
 
